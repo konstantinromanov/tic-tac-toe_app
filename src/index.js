@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 function Square(props) {
+  //debugger
   return (
-    <button className="square" onClick={props.onClickB}>
+    <button className="square" onClick={props.onClickB} style={{ 'color': (calculateWinner(props.squares).includes(props.winnerSquare)) ? 'red' : 'blue' }}>
       {props.value}
     </button>
   );
@@ -13,11 +14,13 @@ function Square(props) {
 class Board extends React.Component {
 
   renderSquare(i) {
-    //debugger
+    
     return <Square
       value={this.props.squares[i]}
       onClickB={() => this.props.onClickA(i)}
       key={i}
+      winnerSquare={i}
+      squares={this.props.squares}
     />;
   }
 
@@ -88,7 +91,7 @@ class Game extends React.Component {
     const vector = this.getVector(i);
     //debugger
 
-    if (calculateWinner(squares) || squares[i]) {
+    if (calculateWinner(squares).length || squares[i]) {
       return;
     }
 
@@ -124,7 +127,7 @@ class Game extends React.Component {
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
+    const winner = calculateWinner(current.squares).length ? current.squares[calculateWinner(current.squares)[0]] : null;
     const accending = this.state.isToggleOn;
 
     //debugger
@@ -182,10 +185,10 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return [a, b, c];
     }
   }
-  return null;
+  return [];
 }
 
 //class Clock extends React.Component {
