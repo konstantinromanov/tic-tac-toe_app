@@ -5,7 +5,7 @@ import './index.css';
 function Square(props) {
   //debugger
   return (
-    <button className="square" onClick={props.onClickB} style={{ 'color': (calculateWinner(props.squares).includes(props.winnerSquare)) ? 'red' : 'blue' }}>
+    <button className="square" onClick={props.onClickB} style={{ 'color': calculateWinner(props.squares).includes(props.winnerSquare) ? 'red' : 'blue' }}>
       {props.value}
     </button>
   );
@@ -145,8 +145,10 @@ class Game extends React.Component {
     let status;
     if (winner) {
       status = 'Winner: ' + winner;
-    } else {
+    } else if (current.squares.some(el => el == null)){
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    } else {
+      status = 'It\'s a draw!';
     }
 
     return (
