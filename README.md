@@ -1,5 +1,5 @@
 # Getting Started with Create React App
-
+Project has been deployed to Github pages https://konstantinromanov.github.io/tic-tac-toe_app/
 Project has been built following the tutorial from React official website.
 
 Improvements that I made to the tic-tac-toe game are listed in order of increasing difficulty:
